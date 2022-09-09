@@ -1,0 +1,98 @@
+---
+title: "{{cookiecutter.project_name}}"
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-fold: true
+    execute:
+      echo: true
+      cache: true
+      autodep: true
+    fig-width: 11.25
+    fig-height: 5.97647
+    fig-dpi: 96
+---
+
+```{r load-libraries}
+#| cache: false
+#| message: false
+
+## Wrap this so we don't leak variables to the working namespace. We'll use the
+## dot prefix convention that the tidyverse uses
+.top.level <- (function() {
+    cur.dir <- path.expand(getwd())
+    while (TRUE) {
+        if (".git" %in% dir(cur.dir, all.files = TRUE)) {
+            return(cur.dir)
+        }
+        next.up <- dirname(cur.dir)
+        if (next.up == cur.dir) {
+            stop("Couldn't find .git directory")
+        }
+        cur.dir <- next.up
+    }
+})()
+
+renv::activate(.top.level)
+
+library("tidyverse")
+suppressMessages(library("magrittr"))
+
+source(file.path(.top.level, "analysis", "common", "theme_dpn_bw.R"))
+source(file.path(.top.level, "analysis", "common", "sized_ggsave.R"))
+
+Rcpp::sourceCpp(file.path(.top.level,
+                          "analysis/common/src/sort_combn_mat.cpp"))
+Rcpp::sourceCpp(file.path(.top.level,
+                          "analysis/common/src/paste_combn_mat.cpp"))
+
+```
+
+```{r init-no-cache}
+#| cache: false
+## Initialize things that we don't want knitr to cache here. That includes
+## things like setting up the workspace and initializing database handles
+
+## Wrap this so we don't leak variables to the working namespace
+(function() {
+    for (project.dir in c("data", "export", "figure", "Rdata")) {
+        if (!dir.exists(project.dir)) {
+            dir.create(project.dir)
+        }
+    }
+})()
+
+```
+
+```{r metadata}
+
+analysis.fname.pfx <- "{{cookiecutter.project_name}}_"
+figure.pfx <- file.path("figure", analysis.fname.pfx)
+export.pfx <- file.path("export", analysis.fname.pfx)
+
+```
+
+```{r infrastructure}
+
+```
+
+```{r data}
+#| cache: true
+
+extern.lib.fpath <- file.path(.top.level, "datasets/external/src/")
+
+```
+
+
+
+
+```{r cleanup-no-cache}
+#| cache: false
+
+## Cleanup that we want executed every time, so we don't want knitr to cache it.
+## This includes things like closing database handles and files
+
+renv::snapshot()
+
+```
