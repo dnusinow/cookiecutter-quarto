@@ -1,0 +1,5 @@
+.envrc
+.gitignore
+*.qmd
+**/README
+*_cache
