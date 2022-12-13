@@ -2,8 +2,8 @@
     "Application": "None",
     "Author": "{{cookiecutter.full_name}}",
     "Comments": "",
-    "Date": "2022-12-09",
+    "Date": "",
     "Group": "Proteomics and Bioinformatics",
-    "Program": "{cookiecutter.program}",
+    "Program": "{{cookiecutter.program}}",
     "JiraURL": ""
 }

@@ -1,5 +1,5 @@
 {
-    "name": "{cookiecutter.program}/{cookiecutter.project_id}",
+    "name": "{{cookiecutter.program}}/{{cookiecutter.project_id}}",
     "registry": "s3://interline-proteomics-analysis",
     "workflow": "quilt-experiment-universal"
 }

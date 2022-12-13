@@ -1,3 +1,3 @@
 [
-    "{cookiecutter.project_name}.html"
+    "{{cookiecutter.project_name}}.html"
 ]

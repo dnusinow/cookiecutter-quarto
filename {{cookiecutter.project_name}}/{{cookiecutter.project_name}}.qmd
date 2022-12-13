@@ -93,6 +93,6 @@ extern.lib.fpath <- file.path(.top.level, "datasets/external/src/")
 ## Cleanup that we want executed every time, so we don't want knitr to cache it.
 ## This includes things like closing database handles and files
 
-renv::snapshot()
+## renv::snapshot()
 
 ```
