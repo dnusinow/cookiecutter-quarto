@@ -42,10 +42,10 @@ suppressMessages(library("magrittr"))
 source(file.path(.top.level, "analysis", "common", "theme_dpn_bw.R"))
 source(file.path(.top.level, "analysis", "common", "sized_ggsave.R"))
 
-Rcpp::sourceCpp(file.path(.top.level,
-                          "analysis/common/src/sort_combn_mat.cpp"))
-Rcpp::sourceCpp(file.path(.top.level,
-                          "analysis/common/src/paste_combn_mat.cpp"))
+## Rcpp::sourceCpp(file.path(.top.level,
+##                           "analysis/common/src/sort_combn_mat.cpp"))
+## Rcpp::sourceCpp(file.path(.top.level,
+##                           "analysis/common/src/paste_combn_mat.cpp"))
 
 ```
 
