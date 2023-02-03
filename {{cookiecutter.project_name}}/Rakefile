@@ -1,0 +1,28 @@
+require 'json'
+task default: %w[build]
+
+BUILD_TARGETS = []
+
+Dir.glob("*.qmd").each do |qmd|
+  html = qmd.gsub(/qmd$/, "html")
+  BUILD_TARGETS.push(html)
+
+  desc "Build #{html} using quarto"
+  file html => [qmd] do
+    sh("quarto render #{qmd}")
+  end
+end
+
+Dir.glob("EXP*functional_interactome.json").each do |json|
+  binfo = {}
+  params = JSON.parse(File.read(json))
+  binfo['target'] = params['analysis.fname'] + ".html"
+  BUILD_TARGETS.push(binfo['target'])
+
+  desc "Build #{binfo['target']}"
+  file binfo['target'] => [json] do
+    sh("../../../platforms/functional_oncology_interactome/functional_oncology_report_generator/build.py #{json}")
+  end
+end
+
+task build: BUILD_TARGETS
