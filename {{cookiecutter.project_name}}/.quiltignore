@@ -3,3 +3,4 @@
 *.qmd
 **/README
 *_cache
+Rakefile
